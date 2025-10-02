@@ -27,14 +27,16 @@ assert img1 is not None, "file could not be read, check with os.path.exists()"
 
 # scale image 1 down to 1/16th its size
 height, width = img1.shape[:2]
-resize = cv.resize(img1, None, fx = 0.25, fy = 0.25)
+img1_small = cv.resize(img1, None, fx = 0.25, fy = 0.25)
 
 # rescale downscaled image using different interpolations
 # nearest neighbor interpolation implementation from scratch
 img1_temp = np.zeros((height, width), dtype=np.uint8)
 
 # nearest neighbor interpolation using OpenCV's built-in function
-# resize = cv.resize(img1, img1_temp, fx = 4, fy = 4, interpolation = cv.INTER_NEAREST)
+img1_nearest_cv = cv.resize(img1_small, (width, height), interpolation = cv.INTER_NEAREST)
+image_path = os.path.join(assignment_dir, "output images", "img1_nearest_cv.tif")
+cv.imwrite(image_path, img1_nearest_cv)
 
 # bilinear interpolation implementation from scratch
 
