@@ -10,11 +10,8 @@
 # ----------------------------------------------------------------
 import numpy as np
 import cv2 as cv
-
-"""1. Image Interpolation"""
-
 # ----------------------------------------------------------------
-# Task 1
+# 1. Image Interpolation
 # ----------------------------------------------------------------
 # read image 1
 img1 = cv.imread("img1.tif")
@@ -36,10 +33,3 @@ resize = cv.resize(img1, img1_temp, fx = 4, fy = 4, interpolation = cv.INTER_NEA
 # bilinear interpolation using OpenCV's built-in function
 
 # bicubic interpolation using OpenCV's built-in function
-
-"""2. Point Operations
-
-3. Histogram Processing
-
-4. Image Filtering
-"""
