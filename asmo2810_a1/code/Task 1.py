@@ -41,5 +41,11 @@ cv.imwrite(image_path, img1_nearest_cv)
 # bilinear interpolation implementation from scratch
 
 # bilinear interpolation using OpenCV's built-in function
+img1_bilinear_cv = cv.resize(img1_small, (width, height), interpolation = cv.INTER_LINEAR)
+image_path = os.path.join(assignment_dir, "output images", "img1_bilinear_cv.tif")
+cv.imwrite(image_path, img1_bilinear_cv)
 
 # bicubic interpolation using OpenCV's built-in function
+img1_bicubic_cv = cv.resize(img1_small, (width, height), interpolation = cv.INTER_CUBIC)
+image_path = os.path.join(assignment_dir, "output images", "img1_bicubic_cv.tif")
+cv.imwrite(image_path, img1_bicubic_cv)
