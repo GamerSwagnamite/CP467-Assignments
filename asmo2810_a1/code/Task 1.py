@@ -52,6 +52,47 @@ cv.imwrite(image_path, img1_nearest_cv)
 # ----------------------------------------------------------------
 # bilinear interpolation implementation from scratch
 # ----------------------------------------------------------------
+img1_bilinear = np.zeros((height, width), dtype=np.uint8)
+
+for i in range(height):
+    for j in range(width):
+
+        # calculate the position in img1_small
+        x = (i / 4)
+        y = (j / 4)
+
+        # x1y1  .   .   .   x2y1
+        #   .   .   .   .   .
+        #   .   .   .   .   .
+        #   .   .   .   xy  .
+        # x1y2  .   .   .   x2y2
+        # calculate the four surrounding pixel coordinates
+        x1 = int(x)
+        y1 = int(y)
+        x2 = min(x1 + 1, small_height - 1)
+        y2 = min(y1 + 1, small_width - 1)
+
+        # calculate fractional parts
+        dx = x - x1
+        dy = y - y1
+
+        # get the four pixel values
+        p11 = img1_small[x1, y1]
+        p12 = img1_small[x1, y2]
+        p21 = img1_small[x2, y1]
+        p22 = img1_small[x2, y2]
+
+        # perform bilinear interpolation
+        # formula for 1D linear interpolation is:
+        # f(n+a) = f(n)(1-a) + f(n+1)a, 0<a<1
+        top_bl = p11 * (1 - dx) + p21 * dx
+        bot_bl = p12 * (1 - dx) + p22 * dx
+        value = top_bl * (1 - dy) + bot_bl * dy
+
+        img1_bilinear[i][j] = np.clip(value, 0, 255).astype(np.uint8)
+
+image_path = os.path.join(assignment_dir, "output images", "img1_bilinear_scratch.tif")
+cv.imwrite(image_path, img1_bilinear)
 
 # ----------------------------------------------------------------
 # bilinear interpolation using OpenCV's built-in function
