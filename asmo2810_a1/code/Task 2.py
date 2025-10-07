@@ -41,7 +41,7 @@ img_write(img2_negative, "img2_negative.tif")
 height, width = img2.shape[:2]
 img2_power = np.zeros((height, width), dtype=np.uint8)
 
-# change constant and gamma's value to get new power law results
+# change constant and gamma's values to get new power law results
 constant = 2
 gamma = 0.9
 
@@ -52,7 +52,12 @@ for i in range(height):
         img2_power[i][j] = np.clip(value, 0, 255).astype(np.uint8)
 
 img_write(img2_power, "img2_power.tif")
+
 # ----------------------------------------------------------------
 # apply bit-slicing on the image
 # ----------------------------------------------------------------
+img2_bitplane = np.zeros((height, width), dtype=np.uint8)
 
+for i in range(8):
+    bitplane = ((img2 >> i) & 1) * 255
+    img_write(bitplane, f"img2_b{i+1}.tif")
