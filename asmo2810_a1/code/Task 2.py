@@ -18,6 +18,7 @@ import os
 def img_write(image, filename):
     image_path = os.path.join(assignment_dir, "output images", filename)
     cv.imwrite(image_path, image)
+    return
 
 # ----------------------------------------------------------------
 # 2. Point Operations
