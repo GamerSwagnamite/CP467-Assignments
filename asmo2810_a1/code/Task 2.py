@@ -33,7 +33,7 @@ assert img2 is not None, "file could not be read, check with os.path.exists()"
 # ----------------------------------------------------------------
 # find the negative of img2
 # ----------------------------------------------------------------
-img2_negative = cv.bitwise_not(img2)
+img2_negative = 255 - img2
 img_write(img2_negative, "img2_negative.tif")
 
 # ----------------------------------------------------------------
