@@ -41,8 +41,15 @@ img5 = img_read("img5.tif")
 # ----------------------------------------------------------------
 # apply histogram equalization on img3
 # ----------------------------------------------------------------
-img3_equalized = cv.equalizeHist(img3)
-img_write(img3_equalized, "img3_equalized.tif")
+height, width = img3.shape[:2]
+img3_equalized = np.zeros((height, width), dtype=np.uint8)
+
+hist, bins = np.histogram(img3.flatten(), 256, [0,256])
+cdf = hist.cumsum()
+cdf_normalized = (cdf - cdf.min()) * 255 / (cdf.max() - cdf.min())
+img3_equalized = np.interp(img3.flatten(), bins[:-1], cdf_normalized)
+
+img_write(img3_equalized.astype(np.uint8).reshape(img3.shape), "img3_equalized.tif")
 
 # ----------------------------------------------------------------
 # apply histogram specialization on img4
